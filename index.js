@@ -7,8 +7,7 @@ const app = express();
 app.use(cors({origin: true}));
 app.use(express.json());
 
-const PI_API_KEY =
-  "wur9onb5zxj2vnaiclmlbkkkcrfvwt2ybk7n2hebl3mm1fhxbwky7o67ukhyeckx";
+const PI_API_KEY = process.env.PI_API_KEY;
 
 // Middleware to log incoming requests
 app.use((req, res, next) => {
