@@ -72,5 +72,26 @@ app.post("/complete-payment", async (req, res) => {
   }
 });
 
+// 🔥 Route to Fetch Pi Balance
+app.get("/balance", async (req, res) => {
+  try {
+    const response = await axios.get(
+      "https://api.minepi.com/v2/payments/balance",
+      {
+        headers: { Authorization: `Key ${PI_API_KEY}` },
+      }
+    );
+
+    functions.logger.info("Balance Fetched:", response.data);
+    res.json(response.data);
+  } catch (error) {
+    functions.logger.error("Error fetching balance:", error.response?.data || error.message);
+    res.status(error.response?.status || 500).json({
+      error: error.response?.data || "Failed to fetch balance",
+    });
+  }
+});
+
+
 // 🚀 Deployable Firebase Function
 exports.api = functions.https.onRequest(app);
